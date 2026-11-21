@@ -27,7 +27,7 @@ export function MilestoneRibbon({
   const progressRatio = range > 0 ? Math.min(100, Math.max(0, ((currentNW - prevMilestone) / range) * 100)) : 0;
 
   return (
-    <div className="p-3 rounded-xl bg-zinc-950/60 border border-zinc-800/70 space-y-2 font-mono">
+    <div className="p-3 rounded-xl bg-black/25 border border-white/15 backdrop-blur-md space-y-2 font-mono">
       <div className="flex items-center justify-between text-xs">
         <div className="flex items-center gap-1.5">
           <TrendUp weight="bold" className="w-4 h-4 text-emerald-400 shrink-0" />

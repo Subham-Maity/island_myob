@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import {
   IslandHero,
   StatTrio,
@@ -12,6 +13,8 @@ import {
 } from "@/island";
 import { INITIAL_MOCK_DATA, STAGE_PRESETS } from "@/lib/mock-data";
 import { Sun, Moon, Sparkle, ArrowClockwise, Sliders } from "@phosphor-icons/react";
+
+const Backdrop = dynamic(() => import("@/island/scene/backdrop"), { ssr: false });
 
 export default function IslandPlayground(): React.JSX.Element {
   const [data, setData] = useState(INITIAL_MOCK_DATA);
@@ -90,28 +93,28 @@ export default function IslandPlayground(): React.JSX.Element {
   };
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100 p-4 sm:p-8 flex flex-col items-center">
-      <div className="w-full max-w-xl space-y-6">
+    <main className="relative min-h-screen text-zinc-100 p-4 sm:p-8 flex flex-col items-center">
+      <Backdrop />
+      <div className="relative z-10 w-full max-w-xl space-y-6">
         {/* ── Top Brand Header ── */}
-        <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4">
+        <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-5">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-black font-mono tracking-tight text-white">
-                ISLAND<span className="text-cyan-400">MYOB</span>
-              </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-800/60 text-cyan-300 font-semibold">
-                Dev Playground
-              </span>
-            </div>
-            <p className="text-xs text-zinc-400 mt-1">
-              Living Habit Island & Milestone Redesign Sandbox
+            <p className="font-mono text-[10px] uppercase tracking-[0.32em] text-amber-200/70">
+              Island Myob · Dev Playground
             </p>
+            <h1
+              className="font-display mt-1 text-[46px] leading-[0.92] font-light tracking-tight text-white"
+              style={{ fontVariationSettings: '"SOFT" 100, "opsz" 144' }}
+            >
+              Habit <em className="font-normal italic text-amber-200">Island</em>
+            </h1>
+            <p className="mt-2 text-sm text-zinc-200/75">A tiny world that grows with every good decision.</p>
           </div>
 
           <button
             type="button"
             onClick={handleRandomizeData}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-mono text-zinc-300 transition-colors cursor-pointer"
+            className="glass-soft flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-1.5 font-mono text-xs text-zinc-100 transition hover:brightness-125 cursor-pointer"
             title="Randomize mock values"
           >
             <ArrowClockwise size={13} />
@@ -120,7 +123,7 @@ export default function IslandPlayground(): React.JSX.Element {
         </div>
 
         {/* ── Interactive Dev Control Toolbar ── */}
-        <div className="p-3.5 rounded-2xl bg-zinc-900/60 border border-zinc-800/80 space-y-3 shadow-lg">
+        <div className="p-3.5 rounded-2xl glass-soft space-y-3">
           <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
             <span className="flex items-center gap-1.5 font-bold text-zinc-200">
               <Sliders size={14} className="text-cyan-400" />
@@ -213,7 +216,7 @@ export default function IslandPlayground(): React.JSX.Element {
 
         {/* ── COMPLEMENTARY ECOSYSTEM: Full Streak & Habits Components ── */}
         {showFullEcosystem && (
-          <div className="space-y-3.5 pt-4 border-t border-zinc-800/80">
+          <div className="space-y-3.5 pt-4 border-t border-white/10">
             <div className="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400 px-1">
               Complementary Streak & Quest Components
             </div>

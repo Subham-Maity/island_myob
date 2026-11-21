@@ -56,7 +56,7 @@ export function PauseShieldSection({
   }
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="rounded-xl border border-zinc-800/60 bg-zinc-900/40">
+    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="rounded-xl glass-soft">
       <CollapsibleTrigger asChild>
         <button
           type="button"

@@ -57,7 +57,7 @@ export function TodayStatusBar({
   }
 
   return (
-    <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800/60 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+    <div className="p-3.5 rounded-xl glass-soft flex flex-col sm:flex-row items-center justify-between gap-2.5">
       <div className="text-xs text-zinc-400 text-center sm:text-left">
         💡 Mark today as a zero-spend day to protect and grow your streak
       </div>

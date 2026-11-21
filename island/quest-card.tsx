@@ -43,7 +43,7 @@ export function QuestCard({
 
   if (!quest) {
     return (
-      <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800/60 text-center text-xs text-zinc-400">
+      <div className="p-4 rounded-2xl glass-soft text-center text-xs text-zinc-400">
         Missions calm. Log activity to nurture your Habit Island!
       </div>
     );
@@ -53,7 +53,7 @@ export function QuestCard({
   const isCompleted = quest.status === "COMPLETED";
 
   return (
-    <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800/60 space-y-3.5">
+    <div className="p-4 rounded-2xl glass-soft space-y-3.5">
       {/* Header Row */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

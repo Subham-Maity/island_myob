@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Info,
   Eye,
@@ -140,21 +141,35 @@ export function IslandHero({
 
   return (
     <>
-      <div
-        className={cn(
-          "relative overflow-hidden w-full rounded-2xl border border-zinc-800/80 bg-zinc-900/60 p-4 transition-all duration-300 space-y-3",
-          glowShadow
-        )}
-      >
+      <div className={cn("rounded-2xl transition-shadow duration-700", glowShadow)}>
+      <div className="glass relative overflow-hidden w-full rounded-2xl p-4 space-y-3">
         {/* 1. Header Ribbon on Top of Island */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xs uppercase tracking-wider font-mono font-bold text-zinc-400">
+            <span
+              className="font-display text-[19px] italic font-normal tracking-tight text-white"
+              style={{ fontVariationSettings: '"SOFT" 100, "opsz" 72' }}
+            >
               Habit Island
             </span>
-            <span className="text-xs font-bold text-emerald-400 font-mono px-2 py-0.5 rounded-full bg-emerald-950/40 border border-emerald-800/40">
-              {activeStageName}
-            </span>
+            <motion.span
+              layout
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              className="relative inline-flex overflow-hidden text-xs font-bold text-emerald-400 font-mono px-2 py-0.5 rounded-full bg-emerald-950/40 border border-emerald-800/40"
+            >
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.span
+                  key={activeStageName}
+                  initial={{ y: 14, opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: -14, opacity: 0, filter: "blur(4px)" }}
+                  transition={{ type: "spring", stiffness: 420, damping: 28 }}
+                  className="whitespace-nowrap"
+                >
+                  {activeStageName}
+                </motion.span>
+              </AnimatePresence>
+            </motion.span>
 
             {/* Info (i) button */}
             <button
@@ -202,8 +217,17 @@ export function IslandHero({
         </div>
 
         {/* 2. Simulation Preview Toolbar (When in Demo Mode) */}
+        <AnimatePresence initial={false}>
         {isPreviewOpen && (
-          <div className="p-2.5 rounded-xl bg-zinc-950/90 border border-cyan-500/40 shadow-lg space-y-2">
+          <motion.div
+            key="sim-toolbar"
+            initial={{ height: 0, opacity: 0, y: -8 }}
+            animate={{ height: "auto", opacity: 1, y: 0 }}
+            exit={{ height: 0, opacity: 0, y: -8 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+          <div className="p-2.5 rounded-xl glass-dark !border-cyan-300/40 space-y-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
@@ -234,19 +258,28 @@ export function IslandHero({
               {/* Step Pills */}
               <div className="flex flex-wrap items-center gap-1 font-mono text-[10px]">
                 {PREVIEW_STAGES.map((s, idx) => (
-                  <button
+                  <motion.button
                     key={idx}
                     type="button"
                     onClick={() => handleSelectStep(idx)}
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.92 }}
                     className={cn(
-                      "px-2 py-0.5 rounded cursor-pointer transition-all",
+                      "relative px-2 py-0.5 rounded cursor-pointer transition-colors border",
                       selectedStepIndex === idx
-                        ? "bg-cyan-500/30 border border-cyan-400 text-cyan-200 font-bold"
-                        : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200"
+                        ? "border-transparent text-cyan-100 font-bold"
+                        : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-zinc-200"
                     )}
                   >
-                    {s.timeLabel}
-                  </button>
+                    {selectedStepIndex === idx && (
+                      <motion.span
+                        layoutId="island-step-pill"
+                        className="absolute inset-0 rounded bg-cyan-500/30 border border-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.35)]"
+                        transition={{ type: "spring", stiffness: 500, damping: 34 }}
+                      />
+                    )}
+                    <span className="relative">{s.timeLabel}</span>
+                  </motion.button>
                 ))}
               </div>
 
@@ -266,14 +299,26 @@ export function IslandHero({
                 style={{ width: `${(simProgressSec / 60) * 100}%` }}
               />
             </div>
-            <div className="text-[11px] font-sans text-cyan-200/90 flex items-center justify-between">
-              <span>{PREVIEW_STAGES[selectedStepIndex].description}</span>
+            <div className="text-[11px] font-sans text-cyan-200/90 flex items-center justify-between gap-2 min-h-[1.25rem]">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={selectedStepIndex}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -12 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                >
+                  {PREVIEW_STAGES[selectedStepIndex].description}
+                </motion.span>
+              </AnimatePresence>
               <span className="text-[10px] text-zinc-500">
                 Step {selectedStepIndex + 1} of 6
               </span>
             </div>
           </div>
+          </motion.div>
         )}
+        </AnimatePresence>
 
         {/* 3. Standalone Isometric Animation Canvas */}
         <IslandAnimation
@@ -284,6 +329,7 @@ export function IslandHero({
 
         {/* 4. Standalone Net Worth Milestone Ribbon */}
         {milestoneData && <MilestoneRibbon {...milestoneData} />}
+      </div>
       </div>
 
       {/* 5. Standalone Info Modal */}

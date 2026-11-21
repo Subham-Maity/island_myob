@@ -20,7 +20,7 @@ export function StatTrio({
   return (
     <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
       {/* 1. Active Streak */}
-      <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/60 text-center stat-count-in">
+      <div className="p-3 rounded-xl glass-soft text-center stat-count-in">
         <div className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest flex items-center justify-center gap-1">
           <Fire weight="fill" className="w-3.5 h-3.5 text-amber-500" />
           <span>Active Streak</span>
@@ -31,7 +31,7 @@ export function StatTrio({
       </div>
 
       {/* 2. Clarity Score */}
-      <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/60 text-center stat-count-in">
+      <div className="p-3 rounded-xl glass-soft text-center stat-count-in">
         <div className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest flex items-center justify-center gap-1">
           <Brain weight="fill" className="w-3.5 h-3.5 text-emerald-400" />
           <span>Clarity Score</span>
@@ -43,7 +43,7 @@ export function StatTrio({
       </div>
 
       {/* 3. Impulses Saved */}
-      <div className="p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/60 text-center stat-count-in">
+      <div className="p-3 rounded-xl glass-soft text-center stat-count-in">
         <div className="text-[10px] font-medium text-zinc-400 uppercase tracking-widest flex items-center justify-center gap-1">
           <Coins weight="fill" className="w-3.5 h-3.5 text-amber-400" />
           <span>Impulses Saved</span>
